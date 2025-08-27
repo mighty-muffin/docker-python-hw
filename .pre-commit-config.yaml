@@ -1,0 +1,137 @@
+---
+# pre-commit install --allow-missing-config &&  pre-commit autoupdate && pre-commit run --all-files --color auto
+exclude: |
+  (?x)^(
+    \.pre-commit-config\.yaml$
+  )
+fail_fast: false
+default_stages:
+  - pre-commit
+default_language_version:
+  python: python3.12
+default_install_hook_types:
+  - commit-msg
+  - pre-commit
+ci:
+  autoupdate_schedule: monthly
+  skip:
+    - ggshield
+    - pin-github-action
+repos:
+  - repo: meta
+    hooks:
+      - id: identity
+        name: "meta | pre-commit hooks"
+        stages:
+          - manual
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.8.3
+    hooks:
+      - id: commitizen
+        name: "git | validate commit messages"
+        stages:
+          - commit-msg
+  - repo: https://github.com/gitguardian/ggshield
+    rev: v1.43.0
+    hooks:
+      - id: ggshield
+        name: "security | scan for secrets"
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+        name: "git | block large files"
+        args: [--maxkb=2048]
+      - id: check-json
+        name: "general | check JSON files"
+      - id: check-toml
+        name: "general | check TOML files"
+      - id: check-xml
+        name: "general | check XML files"
+      - id: check-yaml
+        name: "general | check YAML files"
+      - id: end-of-file-fixer
+        name: "general | fix end of file"
+      - id: forbid-new-submodules
+        name: "git | forbid new submodules"
+      - id: forbid-submodules
+        name: "git | forbid submodules usage"
+      - id: mixed-line-ending
+        name: "general | fix line ending"
+        args:
+          - --fix=auto
+      - id: no-commit-to-branch
+        name: "git | protect main branch"
+        args:
+          - --branch=main
+        stages:
+          - manual
+      - id: pretty-format-json
+        name: "general | prettify JSON files"
+        args:
+          - --autofix
+          - --no-ensure-ascii
+      - id: trailing-whitespace
+        name: "general | remove trailing whitespace"
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.45.0
+    hooks:
+      - id: markdownlint
+        name: "md | lint: run markdownlint-cli"
+        args:
+          - --config
+          - .config/.markdown-lint.yml
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.37.1
+    hooks:
+      - id: yamllint
+        name: "yaml | lint: run yamllint"
+        args:
+          - -c
+          - .config/.yaml-lint.yml
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.7
+    hooks:
+      - id: actionlint
+        name: "gh-action | lint: run actionlint"
+  - repo: local
+    hooks:
+      - id: pin-github-action
+        name: "gh-action | lint: pinned sha"
+        files: ^\.github/workflows/[^/]+\.ya?ml$
+        entry: "pin-github-action ."
+        args:
+          - --allow
+          - "mighty-muffin/*"
+        language: node
+        additional_dependencies:
+          - pin-github-action@3.4.0
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    # uv version.
+    rev: 0.8.13
+    hooks:
+      - id: uv-lock
+        name: "python | uv: lock dependencies"
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.10
+    hooks:
+      - id: ruff-check
+        name: "python | lint: run ruff-check"
+        args:
+          - --fix
+        files: "^app/"
+      - id: ruff-format
+        name: "python | lint: run ruff-format"
+        files: "^app/"
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.20.0
+    hooks:
+      - id: pyupgrade
+        name: "python | code: run pyupgrade"
+        args: 
+          - --py313-plus
+  - repo: https://github.com/asottile/dead
+    rev: v2.1.0
+    hooks:
+      - id: dead
+        name: "python | code: check for dead"

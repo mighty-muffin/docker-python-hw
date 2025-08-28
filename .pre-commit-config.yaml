@@ -112,6 +112,8 @@ repos:
     hooks:
       - id: uv-lock
         name: "python | uv: lock dependencies"
+        stages:
+          - manual
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.12.10
     hooks:

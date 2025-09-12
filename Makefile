@@ -6,6 +6,10 @@ sync:
 docker-buildx:
 	docker buildx build -f Dockerfile . -t docker-python-hw
 
+.PHONY: docker-run
+docker-run:
+	docker run --rm -it docker-python-hw
+
 .PHONY: format
 format:
 	uv run ruff format --check

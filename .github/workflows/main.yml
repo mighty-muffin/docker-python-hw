@@ -71,21 +71,21 @@ jobs:
       uv_version: "0.8.13"
       working_directory: .
 
-  docker-build-push:
-    needs:
-      - unit-test
-    name: Call Docker Build
-    uses: mighty-muffin/.github/.github/workflows/reusable-docker-build.yml@main
+  # docker-build-push:
+  #   needs:
+  #     - unit-test
+  #   name: Call Docker Build
+  #   uses: mighty-muffin/.github/.github/workflows/reusable-docker-build.yml@main
 
-    permissions:
-      contents: read
-      packages: write
-      pull-requests: write
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #     pull-requests: write
 
-    with:
-      platforms: |
-          linux/amd64
-          linux/arm64
+  #   with:
+  #     platforms: |
+  #         linux/amd64
+  #         linux/arm64
 
   release:
     needs:

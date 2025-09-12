@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.10.0 (2025-09-12)
+
+### Feat
+
+- upver with tag
+
 ## v0.9.0 (2025-09-12)
 
 ### Feat

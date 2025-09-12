@@ -43,7 +43,7 @@ jobs:
 
       - name: Create Release Notes File
         run: |
-          echo "${{ join(fromJson(needs.detect-release-parameters.outputs.notes).notes, '') }}" > GH_CHANGELOG.md
+          echo "${{ join(fromJson(needs.detect-release-parameters.outputs.notes).notes, '') }}" > ${{ github.workspace }}-GH_CHANGELOG.md
 
       - name: GH Release
         uses: softprops/action-gh-release@v2

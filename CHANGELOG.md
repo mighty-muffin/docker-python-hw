@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v0.5.0 (2025-09-12)
+
+### Feat
+
+- all automated..really
+- all automated..really
+
 ## v0.4.0 (2025-09-12)
 
 ### Feat

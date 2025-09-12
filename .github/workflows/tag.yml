@@ -29,12 +29,12 @@ jobs:
       - name: Get version from tag
         id: tag_name
         run: |
-          echo ::set-output name=current_version::${GITHUB_REF#refs/tags/v}
+          echo "{current_version}=${GITHUB_REF#refs/tags/v}" >> $GITHUB_STATE
         shell: bash
 
       - name: Get notes
         id: generate_notes
-        uses: anmarkoulis/commitizen-changelog-reader@master
+        uses: anmarkoulis/commitizen-changelog-reader@v1.2.0
         with:
           tag_name: ${{ github.ref }}
           changelog: CHANGELOG.md
@@ -44,7 +44,7 @@ jobs:
           echo "${{join(fromJson(steps.generate_notes.outputs.notes).notes, '')}}" > ${{ github.workspace }}-GH_CHANGELOG.md
 
       - name: GH Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2.3.3
         if: github.ref_type == 'tag'
         with:
           body_path: ${{ github.workspace }}-GH_CHANGELOG.md

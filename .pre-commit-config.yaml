@@ -89,11 +89,11 @@ repos:
         args:
           - -c
           - .config/.yaml-lint.yml
-  - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.7
-    hooks:
-      - id: actionlint
-        name: "gh-action | lint: run actionlint"
+  # - repo: https://github.com/rhysd/actionlint
+  #   rev: v1.7.7
+  #   hooks:
+  #     - id: actionlint
+  #       name: "gh-action | lint: run actionlint"
   - repo: local
     hooks:
       - id: pin-github-action

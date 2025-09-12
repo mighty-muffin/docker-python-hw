@@ -25,7 +25,7 @@ repos:
         stages:
           - manual
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.8.3
+    rev: v4.9.0
     hooks:
       - id: commitizen
         name: "git | validate commit messages"
@@ -108,14 +108,14 @@ repos:
           - pin-github-action@3.4.0
   - repo: https://github.com/astral-sh/uv-pre-commit
     # uv version.
-    rev: 0.8.13
+    rev: 0.8.17
     hooks:
       - id: uv-lock
         name: "python | uv: lock dependencies"
         stages:
           - manual
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.12.10
+    rev: v0.13.0
     hooks:
       - id: ruff-check
         name: "python | lint: run ruff-check"

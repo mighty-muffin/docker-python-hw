@@ -1,20 +1,17 @@
 [project]
 name = "docker-python-hw"
-version = "1.0.0"
+version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = []
 
-[dependency-groups]
-dev = [
-    "python-semantic-release>=10.3.1",
-]
 
-[tool.semantic_release]
-allow_zero_version = false
-branch = "main"
-changelog_file = "CHANGELOG.md"
-commit_message = "chore(release): v{version}"
-commit_parser = "conventional"
-version_toml = ["pyproject.toml:project.version"]
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.1.0"
+tag_format = "v$version"
+version_files = [
+    "pyproject.toml:version",
+]
+update_changelog_on_bump = true

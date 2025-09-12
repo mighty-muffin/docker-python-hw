@@ -89,7 +89,7 @@ jobs:
 
   release:
     needs:
-      - docker-build-push
+      - unit-test
     name: Version - Release bump
     runs-on: ubuntu-24.04
     timeout-minutes: 5

@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  detect-release-parameters:
+  release:
     runs-on: ubuntu-latest
     outputs:
       notes: ${{ steps.generate_notes.outputs.notes }}
@@ -26,24 +26,22 @@ jobs:
         with:
           python-version: 3.13
 
-      - name: Get release notes
+      - name: Get version from tag
+        id: tag_name
+        run: |
+          echo ::set-output name=current_version::${GITHUB_REF#refs/tags/v}
+        shell: bash
+
+      - name: Get notes
         id: generate_notes
-        uses: anmarkoulis/commitizen-changelog-reader@0d1f06b1c3de81073cf4168c227268c6dd2bfa04 # v1.2.0
+        uses: anmarkoulis/commitizen-changelog-reader@master
         with:
           tag_name: ${{ github.ref }}
           changelog: CHANGELOG.md
 
-  release-github:
-    runs-on: ubuntu-latest
-    needs:
-      - detect-release-parameters
-    steps:
-      - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-
       - name: Create Release Notes File
         run: |
-          echo "${{ join(fromJson(needs.detect-release-parameters.outputs.notes).notes, '') }}" > ${{ github.workspace }}-GH_CHANGELOG.md
+          echo "${{join(fromJson(steps.generate_notes.outputs.notes).notes, '')}}" > ${{ github.workspace }}-GH_CHANGELOG.md
 
       - name: GH Release
         uses: softprops/action-gh-release@v2

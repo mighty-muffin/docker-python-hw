@@ -15,3 +15,9 @@ version_files = [
     "pyproject.toml:version",
 ]
 update_changelog_on_bump = true
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+]

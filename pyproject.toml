@@ -4,7 +4,23 @@ version = "0.2.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+
+
+dependencies = [
+    "dotenv>=0.9.9",
+    "logging>=0.4.9.6",
+]
+
+
+[dependency-groups]
+dev = [
+    "mypy>=1.17.1",
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+    "python-semantic-release>=10.3.1",
+    "ruff>=0.12.10",
+    "ty>=0.0.1a19",
+]
 
 
 [tool.commitizen]
@@ -13,11 +29,4 @@ version = "0.2.0"
 tag_format = "v$version"
 version_files = [
     "pyproject.toml:version",
-]
-update_changelog_on_bump = true
-
-[dependency-groups]
-dev = [
-    "pytest>=8.4.2",
-    "pytest-cov>=7.0.0",
 ]

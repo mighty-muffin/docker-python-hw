@@ -44,7 +44,7 @@ jobs:
           echo "${{join(fromJson(steps.generate_notes.outputs.notes).notes, '')}}" > ${{ github.workspace }}-GH_CHANGELOG.md
 
       - name: GH Release
-        uses: softprops/action-gh-release@v2.3.3
+        uses: softprops/action-gh-release@v2.3.4
         if: github.ref_type == 'tag'
         with:
           body_path: ${{ github.workspace }}-GH_CHANGELOG.md
